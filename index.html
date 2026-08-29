@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Industry Research Survey | Thinker Media Group</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --white:#FFFFFF;
+    --paper:#F3F7FC;
+    --blue-deep:#0A2E55;
+    --blue:#1D5A9E;
+    --blue-mid:#2E6FB8;
+    --blue-soft:#EAF2FB;
+    --blue-line:#CBDCEE;
+    --ink:#152A44;
+    --muted:#5C7089;
+    --gold:#B8954A;
+    --danger:#B14343;
+    /* aliases so teal-named rules added later still resolve */
+    --teal-950:var(--blue-deep);
+    --teal-800:var(--blue-deep);
+    --teal-700:var(--blue);
+    --teal-600:var(--blue);
+    --teal-500:var(--blue-mid);
+    --teal-400:var(--gold);
+    --teal-300:var(--blue-soft);
+    --teal-100:var(--blue-soft);
+    --line:var(--blue-line);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:'Inter',sans-serif;
+    background:radial-gradient(circle at 20% 15%, #FFFFFF 0%, #EAF1FA 55%, #DDE9F6 100%);
+    color:var(--ink);
+    min-height:100vh;
+  }
+  .app{
+    width:100%;
+    max-width:700px;
+    margin:0 auto;
+    padding:28px 20px 40px;
+  }
+  .brandbar{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:16px;
+  }
+  .brand{
+    font-family:'Crimson Text',serif;
+    font-size:14px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold);
+  }
+  .progress-track{
+    height:4px;
+    width:100%;
+    background:var(--blue-line);
+    border-radius:3px;
+    margin-bottom:26px;
+    overflow:hidden;
+  }
+  .progress-fill{
+    height:100%;
+    background:linear-gradient(90deg,var(--teal-300),var(--teal-700));
+    transition:width .35s ease;
+  }
+  .card{
+    background:var(--white);
+    border:1px solid var(--blue-line);
+    border-radius:16px;
+    padding:34px 32px;
+    box-shadow:0 20px 50px rgba(10,46,85,0.10);
+  }
+  .section-eyebrow{
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--blue-mid);
+    font-weight:600;
+    margin-bottom:10px;
+  }
+  .qtext{
+    font-family:'Crimson Text',serif;
+    font-size:22px;
+    line-height:1.4;
+    font-weight:600;
+    color:var(--blue-deep);
+    margin:0 0 6px 0;
+    text-align:justify;
+  }
+  .qsub{
+    font-size:13px;
+    color:var(--muted);
+    margin-bottom:22px;
+    font-style:italic;
+    line-height:1.5;
+    text-align:justify;
+  }
+  .intro-title{
+    font-family:'Crimson Text',serif;
+    font-size:25px;
+    font-weight:700;
+    color:var(--blue-deep);
+    margin-bottom:14px;
+    line-height:1.35;
+  }
+  .intro-body{
+    font-size:15px;
+    line-height:1.7;
+    color:var(--ink);
+    margin-bottom:16px;
+    text-align:justify;
+  }
+  .options{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+  .opt{
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    padding:14px 16px;
+    border-radius:10px;
+    border:1px solid var(--blue-line);
+    background:var(--white);
+    cursor:pointer;
+    transition:all .15s ease;
+    font-size:15px;
+    line-height:1.45;
+    color:var(--ink);
+  }
+  .opt:hover{ border-color:var(--blue-mid); background:var(--blue-soft); }
+  .opt.selected{ border-color:var(--blue); background:var(--blue-soft); }
+  .opt .marker{
+    flex:0 0 auto;
+    width:18px;height:18px;
+    border-radius:4px;
+    border:1.5px solid var(--blue-line);
+    margin-top:2px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .opt.radio .marker{ border-radius:50%; }
+  .opt.selected .marker{ border-color:var(--blue); background:var(--blue); }
+  .opt.selected .marker::after{ content:''; width:8px;height:8px; background:var(--white); border-radius:2px; }
+  .opt.radio.selected .marker::after{ border-radius:50%; }
+  .other-input, .text-input{
+    margin-top:6px;
+    width:100%;
+    padding:12px 14px;
+    border-radius:9px;
+    border:1px solid var(--blue-line);
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    font-size:14px;
+  }
+
+  /* ---- Grid (accordion, small row counts: S7a/b/c) ---- */
+  .grid-wrap{ display:flex; flex-direction:column; gap:18px; }
+  .grid-row-card{ border:1px solid var(--blue-line); border-radius:10px; padding:16px 18px; background:var(--paper); }
+  .grid-row-label{ font-size:14.5px; color:var(--blue-deep); margin-bottom:10px; font-weight:600; }
+  .info-dot{ color:var(--blue-mid); cursor:pointer; font-size:13px; font-weight:400; }
+  .info-panel{
+    margin-top:10px;
+    padding:10px 12px;
+    background:var(--blue-soft);
+    border:1px solid var(--blue-line);
+    border-radius:8px;
+    font-size:12.5px;
+    color:var(--ink);
+    line-height:1.5;
+  }
+  .grid-cols{ display:flex; flex-wrap:wrap; gap:8px; }
+  .grid-cell{
+    border:1px solid var(--blue-line);
+    border-radius:8px;
+    padding:9px 13px;
+    font-size:13px;
+    cursor:pointer;
+    background:var(--white);
+    color:var(--ink);
+    text-align:center;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .grid-cell.selected{ background:var(--blue); color:var(--white); border-color:var(--blue); font-weight:600; }
+
+  /* ---- Time-scale combined screens (Q1/Q2/Q3/Q5) ---- */
+  .time-scale-wrap{ display:flex; flex-direction:column; gap:22px; }
+  .time-row-label{ font-size:14px; font-weight:600; color:var(--blue-deep); margin-bottom:8px; }
+  .scale-row{ display:flex; gap:6px; }
+  .scale-btn{
+    flex:1;
+    padding:11px 4px;
+    border-radius:7px;
+    border:1px solid var(--blue-line);
+    background:var(--white);
+    color:var(--ink);
+    cursor:pointer;
+    font-size:13.5px;
+    font-weight:600;
+    text-align:center;
+  }
+  .scale-btn.selected{ border-color:var(--blue); background:linear-gradient(120deg,var(--blue-mid),var(--blue-deep)); color:var(--white); }
+  .scale-legend{ display:flex; justify-content:space-between; font-size:11px; color:var(--muted); margin-top:16px; padding-top:14px; border-top:1px solid var(--blue-line); }
+
+  /* ---- Time-single combined screen (Q4, categorical w/ tooltip) ---- */
+  .time-single-cols{ display:flex; flex-wrap:wrap; gap:8px; }
+  .time-pill{
+    border:1px solid var(--blue-line);
+    border-radius:8px;
+    padding:10px 14px;
+    font-size:13px;
+    cursor:pointer;
+    background:var(--white);
+    color:var(--ink);
+    flex:1 1 auto;
+    min-width:110px;
+    text-align:center;
+  }
+  .time-pill.selected{ background:var(--blue); color:var(--white); border-color:var(--blue); font-weight:600; }
+
+  /* ---- Paginated statement grid (Q6/Q7) ---- */
+  .attr-progress{
+    display:inline-block;
+    font-size:11.5px;
+    font-weight:700;
+    color:var(--teal-700);
+    background:var(--teal-100);
+    border:1px solid var(--teal-300);
+    padding:3px 10px;
+    border-radius:20px;
+    letter-spacing:0.04em;
+    margin-bottom:14px;
+  }
+  .instruction-note{
+    font-family:'Inter',sans-serif;
+    font-size:12.5px;
+    font-weight:600;
+    letter-spacing:0.03em;
+    color:var(--teal-500);
+    text-transform:uppercase;
+    margin-bottom:10px;
+    line-height:1.5;
+  }
+  .statement-text{ font-family:'Crimson Text',serif; font-size:19px; line-height:1.5; color:var(--teal-800); font-weight:600; margin-bottom:20px; text-align:justify; }
+
+  .nav-row{ display:flex; justify-content:space-between; align-items:center; margin-top:28px; }
+  .btn{ font-family:'Inter',sans-serif; font-weight:600; font-size:14px; padding:12px 26px; border-radius:9px; border:none; cursor:pointer; transition:all .15s ease; }
+  .btn-primary{ background:linear-gradient(120deg,var(--blue-mid),var(--blue-deep)); color:var(--white); }
+  .btn-primary:hover{ filter:brightness(1.08); }
+  .btn-primary:disabled, .btn-primary.btn-muted{ opacity:0.4; filter:none; }
+  .btn-ghost{ background:transparent; color:var(--muted); border:1px solid var(--blue-line); }
+  .validation-warning{
+    color:var(--danger);
+    font-size:12.5px;
+    font-weight:600;
+    margin-top:14px;
+    text-align:center;
+  }
+  .btn-ghost:hover{ color:var(--blue-deep); border-color:var(--blue-mid); }
+
+  .center-screen{ display:flex; align-items:center; justify-content:center; min-height:70vh; text-align:center; }
+  .center-screen h1{ font-family:'Crimson Text',serif; font-size:24px; color:var(--blue-deep); margin-bottom:12px; }
+  .center-screen p{ font-size:15px; color:var(--muted); line-height:1.6; max-width:480px; }
+  .footer-note{ text-align:center; font-size:11px; color:var(--muted); margin-top:18px; }
+  .spinner{ width:32px;height:32px;border-radius:50%; border:3px solid var(--blue-soft);border-top-color:var(--blue); animation:spin 1s linear infinite;margin:0 auto 16px; }
+  @keyframes spin{to{transform:rotate(360deg);}}
+
+  @media (max-width:520px){
+    .card{ padding:24px 20px; }
+    .qtext{ font-size:19px; }
+    .statement-text{ font-size:17px; }
+    .scale-btn{ font-size:12px; padding:9px 2px; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="brandbar" id="brandbar"><div class="brand">TMG - Future AI OS Survey</div></div>
+  <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+  <div class="card" id="card"></div>
+</div>
+
+<script>
+/* =========================================================
+   CONFIG
+   ========================================================= */
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxP1PvNtnFAE1IcaxAZB5KTIUI2GNUOh12eudN53Ga60YQIEvjw1vyTFlLNghuPUvtJ/exec";
+const params = new URLSearchParams(window.location.search);
+const REF = params.get('ref') || ('anon_' + Date.now());
+
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+/* =========================================================
+   QUESTION DATA
+   ========================================================= */
+const S2_INDUSTRIES = [
+  "Aerospace/Defense","Advertising/Marketing/Market Research","Automotive",
+  "Banking/Financial Services","Construction","Education/Training",
+  "Energy Production/Utilities, Oil & Gas","Engineering/Design",
+  "Food/Beverages/Restaurants","Government – Federal/State/Local",
+  "Hospitality/Leisure","Insurance","Legal Services","Manufacturing/Industrial",
+  "Medical/Health Care/Pharmaceuticals","Medical/Technology",
+  "Non-Profit/Trade Association","Real Estate","Retail/Wholesale/Supply Chain",
+  "Technology (hardware, software, services)","Telecommunications/Carriers",
+  "Transport/Logistics"
+];
+
+const BRANDS = shuffle(["Apache","ClickHouse","Databricks","EDB/Enterprise DB","IBM Db2","Loop AI",
+  "Microsoft SQL Server","MongoDB","MySQL","Oracle","Postgres","Redis","SAP Hana","Snowflake","SQLite"]);
+
+const WORKLOAD_ROWS = shuffle([
+  {id:"datalake", label:"Data lake(s)", def:"A data lake is a repository designed to store large volumes of structured, semi-structured, and unstructured data, often in its original or raw format. The data can then be used for analytics, data science, machine learning, and other processing workloads."},
+  {id:"dwh", label:"Data warehouse", def:"A data warehouse is a data management environment designed primarily for querying, reporting, business intelligence, and analytics. It typically consolidates structured data from multiple sources and often maintains historical data for analysis over time."},
+  {id:"aituning", label:"AI tuning & inferencing", def:"AI model tuning adapts pre-trained models for specific tasks or organizational needs, while AI inference uses trained models to generate outputs from new data. Both can support AI and agentic workloads."},
+  {id:"htap", label:"Hybrid Transactional Analytical Processing (HTAP)", def:"Hybrid Transactional/Analytical Processing (HTAP) is an architecture that supports both online transaction processing (OLTP) and analytical processing (OLAP) within the same system or closely integrated environment, enabling analysis of operational data with less need to move it into a separate analytical system."},
+  {id:"oltp", label:"Online Transaction Processing (OLTP)", def:"Online Transaction Processing (OLTP) supports the high-volume, concurrent processing of operational transactions, such as purchases, orders, payments, reservations, account updates, or other real-time application activity. OLTP systems are optimized for fast, reliable inserts, updates, and retrieval of relatively small amounts of data per transaction."}
+]);
+
+const LIKELIHOOD_ANCHORS = {1:"No chance",7:"Certain"};
+const IMPORTANCE_ANCHORS = {1:"Not relevant to our organization",7:"Critical to our success"};
+
+// Verbatim maturity option text (stored/scored) + short display label + tooltip def (same verbatim text)
+const MATURITY_OPTIONS = [
+  {full:"Fragmented – Data, AI capabilities, and agents primarily operate across separate systems, tools, or environments.", short:"Fragmented"},
+  {full:"Consolidating – We are actively bringing data, AI capabilities, and agents together, but significant fragmentation remains.", short:"Consolidating"},
+  {full:"Unified – Most data, AI capabilities, and agents operate within an integrated platform or environment.", short:"Unified"},
+  {full:"Embedded – Data, AI capabilities, and agents are deeply integrated into our technology environment and day-to-day business operations.", short:"Embedded"},
+  {full:"Don't know / Not sure", short:"Don't know / Not sure"}
+];
+
+const Q6_STATEMENTS_RAW = [
+  "Functions across our organization (not just IT and data teams) operate on a common underlying technology foundation.",
+  "Our AI agents operate within governed systems that maintain their context, memory, and activity logs.",
+  "Governance, security, and compliance controls are built into AI and data workloads by default rather than added after deployment.",
+  "The same governance and control framework applies regardless of where a workload runs (e.g., cloud, on-premises, or hybrid).",
+  "Teams, workloads, and AI agents operate on a common, governed foundation rather than separate technology stacks.",
+  "External partners can build and integrate applications, services, or AI capabilities on top of our technology foundation.",
+  "We have redesigned roles, skills, and workflows to take advantage of AI capabilities rather than simply adding AI to existing processes.",
+  "A meaningful share of organizational decisions and actions can be executed autonomously by AI agents without human handoff.",
+  "Our technology foundation is deeply integrated into our operations, making a move to another platform a significant re-architecture effort.",
+  "Our technology foundation serves as an enterprise architecture rather than a collection of individual tools and technologies."
+];
+const Q6_STATEMENTS = shuffle(Q6_STATEMENTS_RAW);
+const Q6_SCALE = ["No plans","Exploring / considering","Planning","Implementing","Fully in place","Don't know / not sure"];
+
+const Q7_STATEMENTS_RAW = [
+  "Transactional and analytical data operate within a unified environment without separate data-movement or ETL/ELT processes.",
+  "AI and analytics operate directly on data in place, minimizing the need to copy or move it elsewhere.",
+  "Data access, lineage, governance, and audit controls are built into the underlying data layer.",
+  "AI inference and embeddings operate within the data environment rather than a separate computing layer.",
+  "A common environment supports transactional, analytical, and AI workloads rather than separate platforms for each.",
+  "AI applications and agents can access changes in organizational data in near real time rather than relying primarily on batch updates.",
+  "Vector search and retrieval capabilities are natively integrated with the organization's data environment.",
+  "The same environment can be deployed and governed wherever data must reside, including cloud, on-premises, hybrid, and air-gapped environments.",
+  "The environment supports open and portable standards that reduce dependence on proprietary technologies or individual vendors.",
+  "The environment can scale across growing data and AI workloads without requiring major re-platforming.",
+  "A common infrastructure supports AI capabilities used across both technology teams and business functions.",
+  "AI agents, applications, and services from multiple vendors can be integrated into the environment.",
+  "Computing resources and capacity can scale up or down based on workload, user demand, and cost requirements.",
+  "The environment reduces data fragmentation, technology sprawl, and the need for disconnected workflows.",
+  "The environment provides a common, governed source of data and context for AI models, applications, and agents."
+];
+const Q7_STATEMENTS = shuffle(Q7_STATEMENTS_RAW);
+const Q7_SCALE = ["Strongly associated with a Data and AI Platform","More associated with a Data and AI Platform","Equally associated with both","More associated with an AI Operating System","Strongly associated with an AI Operating System"];
+
+const QUESTIONS = [
+  // ---------- SCREENER ----------
+  {id:"S0", section:"Screener", type:"single", text:"Which country are you currently based in?", sub:"Select one.",
+    options:["United States","Germany","India","Other (please specify)"], other:"Other (please specify)",
+    terminateUnless:["United States","Germany","India"]},
+
+  {id:"S1", section:"Screener", type:"single", text:"Approximately how many employees does your organization have worldwide, including all locations and divisions?", sub:"Your best estimate is fine. Select one.",
+    options:["Less than 100","100 to 249","250 to 499","500 to 999","1,000 to 2,499","2,500 to 4,999","5,000 or more"],
+    terminateUnless:["500 to 999","1,000 to 2,499","2,500 to 4,999","5,000 or more"]},
+
+  {id:"S2", section:"Screener", type:"single", text:"In which industry does your organization mainly operate?", sub:"Select one.",
+    options:[...S2_INDUSTRIES]},
+
+  {id:"S3", section:"Screener", type:"single", text:"We are looking to talk to business professionals representing a wide range of job roles. Which of the following best describes your role?", sub:"Are you a…",
+    options:["President/Chairman","CEO","CFO/COO","CIO/CTO/CDO","SVP/VP","Managing Director/Director/Senior Manager",
+      "Head of Department, Business Unit, or Product Line","General or Middle Management","Accounting/Finance/Procurement",
+      "Professional Staff","Technical/IT, Data or Engineering Management","Technical/IT, Data or Engineering Staff",
+      "Consultant","Other (please specify)"],
+    other:"Other (please specify)",
+    terminateIf:["Accounting/Finance/Procurement","Professional Staff","Consultant","Other (please specify)"]},
+
+  {id:"S4", section:"Screener", type:"multi", text:"Which of the following describes your functional role(s)?", sub:"Please select all that apply.",
+    options:["Application Engineer, Developer","Automation Engineer","Cloud Architecture/Infrastructure","Data Architecture/Infrastructure",
+      "Data Engineer","Data Operations","Data Analytics","Data Science, AI, ML","Data Storage","Data Strategy","Development Operations",
+      "Data Management (Data Warehouse / Data Lake, etc.)","Digital Transformation","Enterprise Architecture","Technology/Information technology (IT)",
+      "Software/App Development","Systems/Solution(s)","None of these"],
+    exclusive:["None of these"],
+    terminateFn:(vals)=>vals.includes("None of these"),
+    skipIf:(a)=>["President/Chairman","CEO","CFO/COO","CIO/CTO/CDO"].includes(a.S3)},
+
+  {id:"S5", section:"Screener", type:"multi", text:"Which of the following best describes your involvement in data infrastructure projects or services for your organization?", sub:"Select all that apply.",
+    options:["Determine the purchasing needs, features, and/or technical requirements","Evaluate solutions, vendors, and/or proposals",
+      "Recommend brands, products and/or solutions","Authorize and/or approve expenditures","None of the above"],
+    exclusive:["None of the above"],
+    terminateFn:(vals)=>{
+      if(vals.includes("None of the above")) return true;
+      if(vals.length===1 && vals[0]==="Authorize and/or approve expenditures") return true;
+      return false;
+    }},
+
+  {id:"S6", section:"Screener", type:"single", text:"How familiar are you with your organization's strategy and plans related to data, AI, and the technology infrastructure used to support them?", sub:"Select one.",
+    options:["Extremely familiar","Very familiar","Somewhat familiar","Slightly familiar","Not at all familiar"],
+    terminateIf:["Slightly familiar","Not at all familiar"]},
+
+  {id:"S7a", section:"Screener", type:"grid_single", text:"Now for each type of data workload, please tell us whether it is currently used, is planned for use or if there are no plans for use by your organization.", sub:"Select one answer per row.",
+    rows: WORKLOAD_ROWS, columns:["Use Now","Plan to Use","Not Used/No Plans","Not Sure"],
+    terminateFn:(rowVals)=>{
+      const vals = Object.values(rowVals);
+      return !vals.includes("Use Now");
+    }},
+
+  {id:"S7b", section:"Screener", type:"grid_multi", text:"Thinking of the different types of data workload(s) used, how is each currently managed?", sub:"If used in a hybrid setting, please select all that apply for each row.",
+    rowsFrom:{from:"S7a", matchValue:"Use Now"},
+    columns: shuffle(["On Premise","Public Cloud","Private Cloud","Other"]).concat(["Not Sure"]), exclusiveCols:["Not Sure"]},
+
+  {id:"S7c", section:"Screener", type:"grid_multi", text:"For each workload your organization currently uses, which cloud provider(s) does your organization prefer for that workload?", sub:"Please select all that apply for each row.",
+    rowsFrom:{from:"S7a", matchValue:"Use Now"},
+    columns: shuffle(["Microsoft Azure","Google Cloud","AWS","National / Regional Cloud Supplier","Other Cloud Provider","No Preferred Provider","No cloud provider – on premise only"])},
+
+  {id:"B1a", section:"Screener", type:"multi", text:"Which of the following data-related technologies are currently being used across your organization?", sub:"Select all that apply.",
+    options:[...BRANDS,"Other (please specify)"], other:"Other (please specify)"},
+
+  {id:"B1b", section:"Screener", type:"multi", text:"Which would be considered for a new project?", sub:"Select all that apply.",
+    options:[...BRANDS,"Other (please specify)"], other:"Other (please specify)"},
+
+  // ---------- MAIN SURVEY ----------
+  {id:"INTRO_MAIN", section:"Main", type:"text_only",
+    text:"AI and Data-Driven Decision-Making",
+    sub:"Today's study focuses on how your organization uses AI and data, how you expect that to evolve, and the future role of Sovereign AI and Data, Data and AI Platforms, and AI Operating Systems."},
+
+  {id:"Q1", section:"Main", type:"time_scale", scaleType:"likelihood",
+    text:"My organization will use the marriage of our AI models and organizational data to drive key business decisions.",
+    sub:"How likely is this to be true? Please use a 7-point scale, where 1 means \u201cNo chance\u201d and 7 means \u201cCertain.\u201d",
+    periods:[{id:"y1", label:"In 1 year"},{id:"y3", label:"In 3 years"}]},
+
+  {id:"DEF_Q2", section:"Main", type:"text_only", text:"Consider the following definition of Sovereign AI and Data:",
+    sub:"\u201cSovereign AI and Data\u201d means maintaining control over your organization's data and AI, including where they reside, how they are accessed, governed, and used to meet organizational and regulatory requirements across cloud, on-premises, and hybrid environments."},
+  {id:"Q2", section:"Main", type:"time_scale", scaleType:"importance",
+    text:"How important is achieving this level of control over AI and data to your organization?",
+    sub:"Please use a 7-point scale, where 1 means \u201cNot relevant to our organization\u201d and 7 means \u201cCritical to our success.\u201d",
+    periods:[{id:"now", label:"Now"},{id:"y1", label:"In 1 year"},{id:"y3", label:"In 3 years"}]},
+
+  {id:"DEF_Q3", section:"Main", type:"text_only", text:"Consider the following definition of a Data and AI Platform:",
+    sub:"A Data and AI Platform brings together an organization's data, analytics, and AI capabilities to support the development and delivery of data- and AI-enabled products, services, customer experiences, and employee experiences. One example is an Amazon-like business model."},
+  {id:"Q3", section:"Main", type:"time_scale", scaleType:"importance",
+    text:"How important is having this type of Data and AI Platform to your organization?",
+    sub:"Please use a 7-point scale, where 1 means \u201cNot relevant to our organization\u201d and 7 means \u201cCritical to our success.\u201d",
+    periods:[{id:"now", label:"Now"},{id:"y1", label:"In 1 year"},{id:"y3", label:"In 3 years"}]},
+
+  {id:"DEF_Q4", section:"Main", type:"text_only", text:"Consider the following definition of a Data and AI Platform:",
+    sub:"A Data and AI Platform is an integrated environment in which an organization's data can be stored, governed, accessed, and used to support AI and analytics without requiring unnecessary duplication or movement across separate environments."},
+  {id:"Q4", section:"Main", type:"time_single", text:"Thinking about your organization's data, AI capabilities, and AI agents, which of the following best describes your level of integration?", sub:"Tap the ⓘ above for full definitions of each option.",
+    options: MATURITY_OPTIONS,
+    periods:[{id:"now", label:"Now"},{id:"y1", label:"In 1 year"},{id:"y3", label:"In 3 years"}]},
+
+  {id:"DEF_Q5", section:"Main", type:"text_only", text:"Consider this statement about an AI Operating System:",
+    sub:"An AI Operating System is a governed foundation that brings together data, AI models and agents, governance, and infrastructure controls in a common environment used across teams, applications, and AI workloads rather than separate technology stacks."},
+  {id:"Q5", section:"Main", type:"time_scale", scaleType:"importance",
+    text:"How important is having this type of AI Operating System to your organization?",
+    sub:"Please use a 7-point scale, where 1 means \u201cNot relevant to our organization\u201d and 7 means \u201cCritical to our success.\u201d",
+    periods:[{id:"now", label:"Now"},{id:"y1", label:"In 1 year"},{id:"y3", label:"In 3 years"}]},
+
+  {id:"Q6", section:"Main", type:"grid_single_chunked", chunkSize:5, sub:"Select one status per statement.", text:"Organizations are at different stages in integrating AI, data, agents, governance, and infrastructure. For each statement, indicate the status that best describes your organization today.",
+    rows: Q6_STATEMENTS.map((s,i)=>({id:"q6_"+i, label:s})), columns:Q6_SCALE},
+
+  {id:"Q7", section:"Main", type:"grid_single_chunked", chunkSize:5, sub:"Select one option per statement.", text:"For each statement below, indicate whether you associate the capability more closely with a Data & AI Platform or an AI Operating System.",
+    rows: Q7_STATEMENTS.map((s,i)=>({id:"q7_"+i, label:s})), columns:Q7_SCALE},
+
+  {id:"Q8a", section:"Main", type:"single", text:"Compared with one year ago, how much consideration does your organization give to energy requirements when making Data and AI Platform or AI Operating System infrastructure decisions?",
+    options:["Much more consideration than one year ago","Somewhat more consideration","About the same consideration","Somewhat less consideration","Much less consideration","Energy requirements are not a consideration for our organization","Don't know / Not sure"]},
+
+  {id:"Q8b", section:"Main", type:"multi", text:"Which of the following energy-related factors are important when your organization makes AI and Data Infrastructure decisions?", sub:"Select all that apply.",
+    options:["Availability of sufficient power","Reliability/resilience of the energy supply","Cost of energy","Energy efficiency",
+      "Availability of renewable or low-carbon energy","Carbon emissions/environmental impact","Water and cooling requirements",
+      "Ability to scale energy capacity as AI workloads grow","Regulatory requirements","Other","None of these","Don't know / Not sure"],
+    exclusive:["None of these","Don't know / Not sure"], other:"Other"},
+
+  {id:"Q8c", section:"Main", type:"multi", text:"When thinking of your organization's data, which one of these statements best represents how you are organized now.", sub:"Please choose a maximum of two statements.",
+    options:["All our data is increasingly being unified into one data platform so everybody and our agents can access it",
+      "Our operational data and our analytics data are converging but it's in its early stages",
+      "Agents are increasingly shifting how we organize our data","Our data is increasingly becoming a mission critical component to our success",
+      "Other","None of these","Don't know / Not sure"],
+    exclusive:["None of these","Don't know / Not sure"], maxSelect:2, other:"Other"},
+
+  {id:"Q8d", section:"Main", type:"single", text:"AI and agents are increasingly important in the enterprise. Which one statement best describes your enterprise's AI agent strategy?",
+    options:["Organized as needed within departmental functions","Organized departmental functions with clear measurements for success",
+      "Corporate mandates and standards but no targets","Corporate mandates and standards with specific targets","Other","None of these","Don't know / Not sure"], other:"Other"},
+
+  {id:"Q9a", section:"Main", type:"single", text:"Compared with one year ago, how has today's geopolitical and regulatory environment affected the importance of AI and Data Sovereignty to your organization?", sub:"Select one.",
+    options:["Made AI and Data Sovereignty much more important","Made AI and Data Sovereignty somewhat more important","Has not changed its importance",
+      "Made AI and Data Sovereignty somewhat less important","Made AI and Data Sovereignty much less important","AI and Data Sovereignty is not relevant to our organization","Don't know / Not sure"]},
+
+  {id:"Q9b", section:"Main", type:"multi", text:"Which of the following factors have increased your organization's focus on AI and Data Sovereignty?", sub:"Select all that apply.",
+    options:["Data privacy or data residency requirements","Regulatory or compliance requirements","Geopolitical uncertainty","Cybersecurity concerns",
+      "Dependence on technology providers in other countries","Dependence on a small number of cloud or AI providers",
+      "AI hardware or semiconductor supply-chain concerns","Need for greater control over organizational data","Need for greater control over AI models and agents",
+      "Business continuity and operational resilience","Desire to reduce vendor lock-in","Other (please specify)","None of these","Don't know / Not sure"],
+    exclusive:["None of these","Don't know / Not sure"], other:"Other (please specify)"}
+];
+
+/* =========================================================
+   STATE
+   ========================================================= */
+let answers = {};
+let otherText = {};
+let infoOpen = {}; // tap-to-reveal definition panels, keyed by a string id
+let idx = -2; // -2 loading, -1 intro
+let subIdx = 0; // row pointer for paginated grids
+let flowCache = null;
+let terminated = false;
+let warningFor = null; // key of the screen currently showing "please answer all" warning
+
+function activeFlow(){
+  if(flowCache) return flowCache;
+  flowCache = QUESTIONS.filter(q => !(q.skipIf && q.skipIf(answers)));
+  return flowCache;
+}
+function rebuildFlow(){ flowCache = null; return activeFlow(); }
+
+function getRows(q){
+  if(q.rows) return q.rows;
+  if(q.rowsFrom){
+    const src = answers[q.rowsFrom.from] || {};
+    return WORKLOAD_ROWS.filter(r => src[r.id] === q.rowsFrom.matchValue);
+  }
+  return [];
+}
+
+function getChunks(q){
+  const rows = getRows(q);
+  const size = q.chunkSize || rows.length;
+  const chunks = [];
+  for(let i=0;i<rows.length;i+=size){ chunks.push(rows.slice(i,i+size)); }
+  return chunks.length ? chunks : [[]];
+}
+
+function escapeHtml(s){
+  const d = document.createElement('div');
+  d.innerText = s;
+  return d.innerHTML;
+}
+
+/* =========================================================
+   RENDER
+   ========================================================= */
+const cardEl = document.getElementById('card');
+const progressFill = document.getElementById('progressFill');
+
+function setProgress(pct){ progressFill.style.width = Math.max(0,Math.min(100,pct)) + "%"; }
+
+// Single delegated click handler — avoids ever embedding option text inside
+// an inline onclick="..." attribute (which breaks on quotes/apostrophes in the text).
+document.addEventListener('click', function(e){
+  const t = e.target.closest('[data-action]');
+  if(!t) return;
+  const action = t.dataset.action;
+  const qid = t.dataset.qid;
+  const q = qid ? QUESTIONS.find(x=>x.id===qid) : null;
+
+  if(action === 'start'){ startSurvey(); return; }
+  if(action === 'next'){ goNext(); return; }
+  if(action === 'back'){ goBack(); return; }
+
+  if(action === 'single'){ selectSingle(qid, q.options[Number(t.dataset.idx)]); return; }
+  if(action === 'multi'){ selectMulti(qid, q.options[Number(t.dataset.idx)]); return; }
+  if(action === 'time-scale'){ selectTimeScale(qid, t.dataset.pid, Number(t.dataset.n)); return; }
+  if(action === 'time-single'){ selectTimeSingle(qid, t.dataset.pid, q.options[Number(t.dataset.idx)].full); return; }
+  if(action === 'grid-single'){ selectGridSingle(qid, t.dataset.rid, q.columns[Number(t.dataset.colidx)]); return; }
+  if(action === 'grid-multi'){ selectGridMulti(qid, t.dataset.rid, q.columns[Number(t.dataset.colidx)]); return; }
+  if(action === 'grid-paginated'){ selectGridPaginated(qid, t.dataset.rid, Number(t.dataset.colidx)); return; }
+
+  if(action === 'toggle-info'){
+    e.stopPropagation();
+    const key = t.dataset.key;
+    infoOpen[key] = !infoOpen[key];
+    render();
+    return;
+  }
+});
+
+document.addEventListener('input', function(e){
+  if(e.target.matches('[data-other-qid]')){
+    otherText[e.target.dataset.otherQid] = e.target.value;
+  }
+});
+
+function render(){
+  if(idx === -2){ renderLoading(); return; }
+  if(idx === -1){ renderIntro(); return; }
+  if(terminated){ renderTerminate(); return; }
+  const flow = activeFlow();
+  if(idx >= flow.length){ renderThankYou(); return; }
+  renderQuestion(flow[idx]);
+}
+
+function renderLoading(){
+  setProgress(0);
+  cardEl.innerHTML = `<div class="center-screen"><div><div class="spinner"></div><p>Loading survey…</p></div></div>`;
+}
+
+function renderIntro(){
+  setProgress(0);
+  cardEl.innerHTML = `
+    <div class="intro-title">The World of Sovereign AI &amp; Data / Future AI OS</div>
+    <p class="intro-body">The next phase of enterprise AI depends on infrastructure choices being made now, whether organizations are building a Data and AI Platform, an AI Operating System, or a hybrid of both, and how they weigh control, energy, and sovereignty along the way.</p>
+    <p class="intro-body">This short survey gathers the views of senior data, AI, and technology leaders on these decisions. Results will be published as an industry report; all responses are anonymous.</p>
+    <div class="nav-row" style="justify-content:flex-end;">
+      <button class="btn btn-primary" data-action="start">Begin Survey</button>
+    </div>`;
+}
+
+function renderTerminate(){
+  setProgress(100);
+  cardEl.innerHTML = `<div class="center-screen"><div>
+      <h1>Thank you for your interest</h1>
+      <p>At this time, you don't qualify for this particular survey based on your responses. We appreciate you taking the time to share your perspective, and hope to have the opportunity to include you in future research.</p>
+    </div></div>`;
+}
+
+function renderAlreadyUsed(){
+  setProgress(100);
+  cardEl.innerHTML = `<div class="center-screen"><div>
+      <h1>This link has already been used</h1>
+      <p>Our records show this survey link has already been completed or closed. Each invitation can only be used once. If you believe this is an error, please contact the research team that sent you this link.</p>
+    </div></div>`;
+}
+
+function renderThankYou(){
+  submitFinal("Complete");
+  setProgress(100);
+  cardEl.innerHTML = `<div class="center-screen"><div>
+      <h1>Thank you for sharing your perspective</h1>
+      <p>Your responses will help shape an industry report on how organizations are building for the next phase of AI, data, and infrastructure. All responses remain anonymous.</p>
+    </div></div>`;
+}
+
+function isAnswered(q){
+  if(q.type==="text_only") return true;
+  const v = answers[q.id];
+  if(q.type==="single") return v !== undefined && v !== null && v !== "";
+  if(q.type==="multi") return Array.isArray(v) && v.length>0;
+  if(q.type==="grid_single"){
+    const rows = getRows(q);
+    if(rows.length===0) return true;
+    return rows.every(r => v && v[r.id]);
+  }
+  if(q.type==="grid_multi"){
+    const rows = getRows(q);
+    if(rows.length===0) return true;
+    return rows.every(r => v && Array.isArray(v[r.id]) && v[r.id].length>0);
+  }
+  if(q.type==="grid_single_paginated"){
+    if(!v) return false;
+    const row = q.rows[subIdx];
+    return !!v[row.id];
+  }
+  if(q.type==="grid_single_chunked"){
+    if(!v) return false;
+    const chunk = getChunks(q)[subIdx] || [];
+    return chunk.every(r => !!v[r.id]);
+  }
+  if(q.type==="time_scale" || q.type==="time_single"){
+    if(!v) return false;
+    return q.periods.every(p => v[p.id] !== undefined && v[p.id] !== null && v[p.id] !== "");
+  }
+  return false;
+}
+
+function renderQuestion(q){
+  const flow = activeFlow();
+  let pct;
+  if(q.type==="grid_single_paginated"){
+    pct = ((idx + subIdx/q.rows.length) / flow.length) * 100;
+  } else if(q.type==="grid_single_chunked"){
+    pct = ((idx + subIdx/getChunks(q).length) / flow.length) * 100;
+  } else {
+    pct = (idx / flow.length) * 100;
+  }
+  setProgress(pct);
+
+  let html = q.section === "Main" ? "" : `<div class="section-eyebrow">${escapeHtml(q.section)}</div>`;
+
+  if(q.type === "grid_single_chunked"){
+    const chunks = getChunks(q);
+    const chunk = chunks[subIdx];
+    if(!answers[q.id]) answers[q.id] = {};
+    html += `<div class="attr-progress">Statements ${subIdx*q.chunkSize+1}\u2013${subIdx*q.chunkSize+chunk.length} of ${getRows(q).length}</div>`;
+    html += `<div class="qtext">${escapeHtml(q.text)}</div>`;
+    if(q.sub) html += `<div class="qsub">${escapeHtml(q.sub)}</div>`;
+    html += `<div class="grid-wrap">`;
+    chunk.forEach(r=>{
+      html += `<div class="grid-row-card"><div class="grid-row-label">${escapeHtml(r.label)}</div>`;
+      html += `<div class="grid-cols" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin-top:10px;">`;
+      q.columns.forEach((col,ci)=>{
+        const sel = answers[q.id][r.id]===col;
+        html += `<div class="grid-cell ${sel?'selected':''}" data-action="grid-single" data-qid="${q.id}" data-rid="${r.id}" data-colidx="${ci}">${escapeHtml(col)}</div>`;
+      });
+      html += `</div></div>`;
+    });
+    html += `</div>`;
+    cardEl.innerHTML = html;
+    appendNav(q, isAnswered(q));
+    return;
+  }
+
+  if(q.type === "grid_single_paginated"){
+    const row = q.rows[subIdx];
+    html += `<div class="attr-progress">Statement ${subIdx+1} of ${q.rows.length}</div>`;
+    html += `<div class="instruction-note">${escapeHtml(q.text)}</div>`;
+    html += `<div class="statement-text">${escapeHtml(row.label)}</div>`;
+    if(!answers[q.id]) answers[q.id] = {};
+    const sel = answers[q.id][row.id];
+    html += `<div class="time-single-cols">`;
+    q.columns.forEach((col,ci)=>{
+      html += `<div class="time-pill ${sel===col?'selected':''}" data-action="grid-paginated" data-qid="${q.id}" data-rid="${row.id}" data-colidx="${ci}">${escapeHtml(col)}</div>`;
+    });
+    html += `</div>`;
+    cardEl.innerHTML = html;
+    appendNav(q, isAnswered(q));
+    return;
+  }
+
+  html += `<div class="qtext">${escapeHtml(q.text)}</div>`;
+  if(q.sub) html += `<div class="qsub">${escapeHtml(q.sub)}</div>`;
+
+  if(q.type === "text_only"){
+    cardEl.innerHTML = html;
+    appendNav(q, true, "Continue");
+    return;
+  }
+
+  if(q.type === "single"){
+    html += `<div class="options">`;
+    q.options.forEach((opt,oi)=>{
+      const selected = answers[q.id]===opt;
+      html += `<div class="opt radio ${selected?'selected':''}" data-action="single" data-qid="${q.id}" data-idx="${oi}"><div class="marker"></div><div>${escapeHtml(opt)}</div></div>`;
+      if(q.other===opt && selected){
+        html += `<input class="other-input" data-other-qid="${q.id}" placeholder="Please specify" value="${escapeHtml(otherText[q.id]||'')}">`;
+      }
+    });
+    html += `</div>`;
+  }
+
+  if(q.type === "multi"){
+    if(!Array.isArray(answers[q.id])) answers[q.id]=[];
+    html += `<div class="options">`;
+    q.options.forEach((opt,oi)=>{
+      const selected = answers[q.id].includes(opt);
+      html += `<div class="opt ${selected?'selected':''}" data-action="multi" data-qid="${q.id}" data-idx="${oi}"><div class="marker"></div><div>${escapeHtml(opt)}</div></div>`;
+      if(q.other===opt && selected){
+        html += `<input class="other-input" data-other-qid="${q.id}" placeholder="Please specify" value="${escapeHtml(otherText[q.id]||'')}">`;
+      }
+    });
+    html += `</div>`;
+  }
+
+  if(q.type === "time_scale"){
+    if(!answers[q.id]) answers[q.id] = {};
+    const anchors = q.scaleType==="likelihood" ? LIKELIHOOD_ANCHORS : IMPORTANCE_ANCHORS;
+    html += `<div class="time-scale-wrap">`;
+    q.periods.forEach(p=>{
+      html += `<div><div class="time-row-label">${escapeHtml(p.label)}</div><div class="scale-row">`;
+      for(let n=1;n<=7;n++){
+        const sel = answers[q.id][p.id]===n;
+        html += `<div class="scale-btn ${sel?'selected':''}" data-action="time-scale" data-qid="${q.id}" data-pid="${p.id}" data-n="${n}">${n}</div>`;
+      }
+      html += `</div></div>`;
+    });
+    html += `<div class="scale-legend"><span>1 = ${escapeHtml(anchors[1])}</span><span>7 = ${escapeHtml(anchors[7])}</span></div>`;
+    html += `</div>`;
+  }
+
+  if(q.type === "time_single"){
+    if(!answers[q.id]) answers[q.id] = {};
+    const defKey = q.id + "_defs";
+    html += `<div style="margin-bottom:16px;"><span class="info-dot" data-action="toggle-info" data-key="${defKey}">ⓘ What do these mean?</span></div>`;
+    if(infoOpen[defKey]){
+      html += `<div class="info-panel" style="margin-bottom:18px;">`;
+      q.options.forEach(opt=>{
+        html += `<div style="margin-bottom:8px;"><strong>${escapeHtml(opt.short)}:</strong> ${escapeHtml(opt.full)}</div>`;
+      });
+      html += `</div>`;
+    }
+    html += `<div class="time-scale-wrap">`;
+    q.periods.forEach(p=>{
+      html += `<div><div class="time-row-label">${escapeHtml(p.label)}</div><div class="time-single-cols">`;
+      q.options.forEach((opt,oi)=>{
+        const sel = answers[q.id][p.id]===opt.full;
+        html += `<div class="time-pill ${sel?'selected':''}" data-action="time-single" data-qid="${q.id}" data-pid="${p.id}" data-idx="${oi}">${escapeHtml(opt.short)}</div>`;
+      });
+      html += `</div></div>`;
+    });
+    html += `</div>`;
+  }
+
+  if(q.type === "grid_single" || q.type === "grid_multi"){
+    const rows = getRows(q);
+    if(!answers[q.id]) answers[q.id] = {};
+    html += `<div class="grid-wrap">`;
+    rows.forEach(r=>{
+      const infoKey = q.id + "_" + r.id;
+      const infoIcon = r.def ? ` <span class="info-dot" data-action="toggle-info" data-key="${infoKey}">ⓘ</span>` : "";
+      html += `<div class="grid-row-card"><div class="grid-row-label">${escapeHtml(r.label)}${infoIcon}</div>`;
+      if(r.def && infoOpen[infoKey]){
+        html += `<div class="info-panel">${escapeHtml(r.def)}</div>`;
+      }
+      html += `<div class="grid-cols" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin-top:10px;">`;
+      q.columns.forEach((col,ci)=>{
+        if(q.type==="grid_single"){
+          const sel = answers[q.id][r.id]===col;
+          html += `<div class="grid-cell ${sel?'selected':''}" data-action="grid-single" data-qid="${q.id}" data-rid="${r.id}" data-colidx="${ci}">${escapeHtml(col)}</div>`;
+        } else {
+          if(!Array.isArray(answers[q.id][r.id])) answers[q.id][r.id]=[];
+          const sel = answers[q.id][r.id].includes(col);
+          html += `<div class="grid-cell ${sel?'selected':''}" data-action="grid-multi" data-qid="${q.id}" data-rid="${r.id}" data-colidx="${ci}">${escapeHtml(col)}</div>`;
+        }
+      });
+      html += `</div></div>`;
+    });
+    html += `</div>`;
+  }
+
+  cardEl.innerHTML = html;
+  appendNav(q, isAnswered(q));
+}
+
+function appendNav(q, canNext, nextLabel){
+  const showBack = idx > 0 || ((q.type==="grid_single_paginated" || q.type==="grid_single_chunked") && subIdx > 0);
+  const showWarning = !canNext && warningFor === screenKey(q);
+  if(showWarning){
+    const warn = document.createElement('div');
+    warn.className = "validation-warning";
+    warn.textContent = "Please select responses for all the questions.";
+    cardEl.appendChild(warn);
+  }
+  const nav = document.createElement('div');
+  nav.className = "nav-row";
+  nav.innerHTML = `
+    <button class="btn btn-ghost" style="visibility:${showBack?'visible':'hidden'}" data-action="back">Back</button>
+    <button class="btn btn-primary ${canNext?'':'btn-muted'}" id="nextBtn" data-action="next">${nextLabel || 'Next'}</button>
+  `;
+  cardEl.appendChild(nav);
+}
+
+/* =========================================================
+   SELECT HANDLERS (re-render after each change)
+   ========================================================= */
+function selectSingle(qid, val){
+  const q = QUESTIONS.find(x=>x.id===qid);
+  answers[qid] = val;
+  if(!(q.other===val)) delete otherText[qid];
+  render();
+}
+function selectMulti(qid, val){
+  const q = QUESTIONS.find(x=>x.id===qid);
+  let vals = answers[qid];
+  const selected = vals.includes(val);
+  if(selected){
+    vals = vals.filter(v=>v!==val);
+  } else {
+    if(q.exclusive && q.exclusive.includes(val)){ vals=[val]; }
+    else if(q.exclusive){ vals = vals.filter(v=>!q.exclusive.includes(v)); vals.push(val); }
+    else { vals.push(val); }
+    if(q.maxSelect && vals.length > q.maxSelect){ vals.shift(); }
+  }
+  answers[qid]=vals;
+  render();
+}
+function selectTimeScale(qid, pid, n){ answers[qid][pid]=n; render(); }
+function selectTimeSingle(qid, pid, full){ answers[qid][pid]=full; render(); }
+function selectGridSingle(qid, rid, col){ answers[qid][rid]=col; render(); }
+function selectGridMulti(qid, rid, col){
+  const q = QUESTIONS.find(x=>x.id===qid);
+  let a = answers[qid][rid];
+  const sel = a.includes(col);
+  if(sel){ a = a.filter(x=>x!==col); }
+  else {
+    if(q.exclusiveCols && q.exclusiveCols.includes(col)){ a=[col]; }
+    else if(q.exclusiveCols){ a = a.filter(x=>!q.exclusiveCols.includes(x)); a.push(col); }
+    else { a.push(col); }
+  }
+  answers[qid][rid]=a;
+  render();
+}
+function selectGridPaginated(qid, rid, colIdx){
+  const q = QUESTIONS.find(x=>x.id===qid);
+  answers[qid][rid] = q.columns[colIdx];
+  render();
+}
+
+/* =========================================================
+   NAV / TERMINATE LOGIC
+   ========================================================= */
+function startSurvey(){ idx = 0; subIdx = 0; render(); }
+
+function checkTerminate(q){
+  const v = answers[q.id];
+  if(q.terminateUnless && !q.terminateUnless.includes(v)) return true;
+  if(q.terminateIf && q.terminateIf.includes(v)) return true;
+  if(q.terminateFn){
+    if(q.type==="multi" && q.terminateFn(v)) return true;
+    if(q.type==="grid_single" && q.terminateFn(v)) return true;
+  }
+  return false;
+}
+
+function screenKey(q){
+  if(q.type==="grid_single_paginated" || q.type==="grid_single_chunked") return q.id+':'+subIdx;
+  return q.id+':0';
+}
+
+function goNext(){
+  const flow = activeFlow();
+  const q = flow[idx];
+
+  if(q.type === "grid_single_paginated"){
+    if(!isAnswered(q)){ warningFor = screenKey(q); render(); return; }
+    warningFor = null;
+    if(subIdx < q.rows.length-1){ subIdx++; render(); window.scrollTo(0,0); return; }
+    subIdx = 0;
+    idx++;
+    rebuildFlow();
+    render();
+    window.scrollTo(0,0);
+    return;
+  }
+
+  if(q.type === "grid_single_chunked"){
+    if(!isAnswered(q)){ warningFor = screenKey(q); render(); return; }
+    warningFor = null;
+    const chunks = getChunks(q);
+    if(subIdx < chunks.length-1){ subIdx++; render(); window.scrollTo(0,0); return; }
+    subIdx = 0;
+    idx++;
+    rebuildFlow();
+    render();
+    window.scrollTo(0,0);
+    return;
+  }
+
+  if(!isAnswered(q)){ warningFor = screenKey(q); render(); return; }
+  warningFor = null;
+  if(checkTerminate(q)){
+    terminated = true;
+    submitFinal("Disqualified", q.id);
+    render();
+    return;
+  }
+  idx++;
+  subIdx = 0;
+  rebuildFlow();
+  render();
+  window.scrollTo(0,0);
+}
+
+function goBack(){
+  const flow = activeFlow();
+  const q = flow[idx];
+  if(q && (q.type==="grid_single_paginated" || q.type==="grid_single_chunked") && subIdx>0){ subIdx--; render(); window.scrollTo(0,0); return; }
+  if(idx>0){ idx--; subIdx=0; render(); window.scrollTo(0,0); }
+}
+
+/* =========================================================
+   SUBMISSION
+   ========================================================= */
+function codeOf(list, label){
+  const i = list.indexOf(label);
+  return i === -1 ? "" : String(i+1);
+}
+
+function flattenAnswers(){
+  const out = {};
+  QUESTIONS.forEach(q=>{
+    const v = answers[q.id];
+    if(v===undefined) return;
+
+    if(q.type==="single"){
+      out[q.id+"_label"] = v;
+      out[q.id+"_code"] = codeOf(q.options, v);
+      if(q.other && v===q.other && otherText[q.id]) out[q.id+"_other"] = otherText[q.id];
+
+    } else if(q.type==="multi"){
+      out[q.id+"_label"] = v.join(" | ");
+      out[q.id+"_code"] = v.map(x=>codeOf(q.options, x)).join(" | ");
+      if(q.other && v.includes(q.other) && otherText[q.id]) out[q.id+"_other"] = otherText[q.id];
+
+    } else if(q.type==="grid_single" || q.type==="grid_single_paginated" || q.type==="grid_single_chunked"){
+      const rows = q.type==="grid_single" ? getRows(q) : q.rows;
+      const labelObj = {}, codeObj = {};
+      rows.forEach(r=>{
+        labelObj[r.id] = v[r.id] || "";
+        codeObj[r.id] = v[r.id] ? codeOf(q.columns, v[r.id]) : "";
+      });
+      out[q.id+"_label"] = JSON.stringify(labelObj);
+      out[q.id+"_code"] = JSON.stringify(codeObj);
+
+    } else if(q.type==="grid_multi"){
+      const rows = getRows(q);
+      const labelObj = {}, codeObj = {};
+      rows.forEach(r=>{
+        const arr = v[r.id] || [];
+        labelObj[r.id] = arr;
+        codeObj[r.id] = arr.map(x=>codeOf(q.columns, x));
+      });
+      out[q.id+"_label"] = JSON.stringify(labelObj);
+      out[q.id+"_code"] = JSON.stringify(codeObj);
+
+    } else if(q.type==="time_scale"){
+      out[q.id+"_label"] = JSON.stringify(v);
+      out[q.id+"_code"] = JSON.stringify(v);
+
+    } else if(q.type==="time_single"){
+      const fullList = q.options.map(o=>o.full);
+      const labelObj = {}, codeObj = {};
+      q.periods.forEach(p=>{
+        labelObj[p.id] = v[p.id] || "";
+        codeObj[p.id] = v[p.id] ? codeOf(fullList, v[p.id]) : "";
+      });
+      out[q.id+"_label"] = JSON.stringify(labelObj);
+      out[q.id+"_code"] = JSON.stringify(codeObj);
+    }
+  });
+  return out;
+}
+
+function submitFinal(status, reason){
+  const payload = {
+    ref: REF,
+    status: status,
+    disqualify_reason: reason || "",
+    timestamp_ist: new Date().toLocaleString('en-IN',{timeZone:'Asia/Kolkata'}),
+    answers: flattenAnswers()
+  };
+  lockRef();
+  try{
+    fetch(SCRIPT_URL, {
+      method:"POST",
+      mode:"no-cors",
+      headers:{"Content-Type":"text/plain;charset=utf-8"},
+      body: JSON.stringify(payload)
+    });
+  }catch(e){ console.error("submit failed", e); }
+}
+
+function lockRef(){ try{ localStorage.setItem('used_ref_'+REF, '1'); }catch(e){} }
+function isLockedLocally(){ try{ return localStorage.getItem('used_ref_'+REF) === '1'; }catch(e){ return false; } }
+
+function checkServerLock(cb){
+  if(!SCRIPT_URL || SCRIPT_URL.indexOf("REPLACE_WITH")===0){ cb(false); return; }
+  fetch(SCRIPT_URL + "?action=checkLock&ref=" + encodeURIComponent(REF))
+    .then(r=>r.json())
+    .then(d=>cb(!!d.used))
+    .catch(()=>cb(false));
+}
+
+/* =========================================================
+   BOOT
+   ========================================================= */
+function boot(){
+  if(isLockedLocally()){ renderAlreadyUsed(); return; }
+  checkServerLock((used)=>{
+    if(used){ lockRef(); renderAlreadyUsed(); }
+    else { idx = -1; render(); }
+  });
+}
+boot();
+</script>
+</body>
+</html>
