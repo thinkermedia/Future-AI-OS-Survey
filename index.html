@@ -294,7 +294,7 @@
 /* =========================================================
    CONFIG
    ========================================================= */
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxP1PvNtnFAE1IcaxAZB5KTIUI2GNUOh12eudN53Ga60YQIEvjw1vyTFlLNghuPUvtJ/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyN3XCpOgp3Gi3lTXS79TnN1YyI__Z0bkr7d2ruVdSSGb5DNSIKDIRNSbtaIxQkcsw/exec";
 const params = new URLSearchParams(window.location.search);
 const REF = params.get('ref') || ('anon_' + Date.now());
 
@@ -380,6 +380,26 @@ const Q7_STATEMENTS_RAW = [
 const Q7_STATEMENTS = shuffle(Q7_STATEMENTS_RAW);
 const Q7_SCALE = ["Strongly associated with a Data and AI Platform","More associated with a Data and AI Platform","Equally associated with both","More associated with an AI Operating System","Strongly associated with an AI Operating System"];
 
+const B2_STATEMENTS_RAW = [
+  "Cybersecurity & Fraud Detection",
+  "Predictive Analytics & Business Intelligence",
+  "Personalized Customer Engagement (e.g., chatbots, recommendations)",
+  "Sales & Revenue Optimization",
+  "Financial & Expense Automation",
+  "Workplace Collaboration & Productivity",
+  "Content Generation & Marketing Automation",
+  "Supply Chain Optimization",
+  "Corporate Training & Employee Development",
+  "HR & Talent Acquisition",
+  "Automated IT Operations & DevOps",
+  "Digital Twins & Simulation",
+  "Product Design & Prototyping",
+  "Code Generation & Software Development",
+  "Legal Document Analysis & Contract Management"
+];
+const B2_STATEMENTS = shuffle(B2_STATEMENTS_RAW);
+const B2_SCALE = ["5 \u2013 In scaled/mainstream production use","4 \u2013 In limited production use","3 \u2013 In pilot/experimental use","2 \u2013 Planning or exploring use","1 \u2013 No plans / Not on our radar","0 \u2013 Don't know / Not sure"];
+
 const QUESTIONS = [
   // ---------- SCREENER ----------
   {id:"S0", section:"Screener", type:"single", text:"Which country are you currently based in?", sub:"Select one.",
@@ -445,6 +465,11 @@ const QUESTIONS = [
   {id:"B1b", section:"Screener", type:"multi", text:"Which would be considered for a new project?", sub:"Select all that apply.",
     options:[...BRANDS,"Other (please specify)"], other:"Other (please specify)"},
 
+  {id:"B2", section:"Screener", type:"grid_single_chunked", chunkSize:5, text:"Below is a list of business functions where AI and data-driven initiatives may be used. For each, please indicate your organization's current level of adoption of AI and data-driven initiatives within that function:",
+    sub:"Select one level of adoption per function.",
+    rows: B2_STATEMENTS.map((s,i)=>({id:"b2_"+i, label:s})), columns: B2_SCALE,
+    columnCodes: ["5","4","3","2","1","0"]},
+
   // ---------- MAIN SURVEY ----------
   {id:"INTRO_MAIN", section:"Main", type:"text_only",
     text:"AI and Data-Driven Decision-Making",
@@ -453,34 +478,34 @@ const QUESTIONS = [
   {id:"Q1", section:"Main", type:"time_scale", scaleType:"likelihood",
     text:"My organization will use the marriage of our AI models and organizational data to drive key business decisions.",
     sub:"How likely is this to be true? Please use a 7-point scale, where 1 means \u201cNo chance\u201d and 7 means \u201cCertain.\u201d",
-    periods:[{id:"y1", label:"In 1 year"},{id:"y3", label:"In 3 years"}]},
+    periods:[{id:"y1", label:"In 1 year", qnrCode:"Q1a"},{id:"y3", label:"In 3 years", qnrCode:"Q1b"}]},
 
   {id:"DEF_Q2", section:"Main", type:"text_only", text:"Consider the following definition of Sovereign AI and Data:",
     sub:"\u201cSovereign AI and Data\u201d means maintaining control over your organization's data and AI, including where they reside, how they are accessed, governed, and used to meet organizational and regulatory requirements across cloud, on-premises, and hybrid environments."},
   {id:"Q2", section:"Main", type:"time_scale", scaleType:"importance",
     text:"How important is achieving this level of control over AI and data to your organization?",
     sub:"Please use a 7-point scale, where 1 means \u201cNot relevant to our organization\u201d and 7 means \u201cCritical to our success.\u201d",
-    periods:[{id:"now", label:"Now"},{id:"y1", label:"In 1 year"},{id:"y3", label:"In 3 years"}]},
+    periods:[{id:"now", label:"Now", qnrCode:"Q2a"},{id:"y1", label:"In 1 year", qnrCode:"Q2b"},{id:"y3", label:"In 3 years", qnrCode:"Q2c"}]},
 
   {id:"DEF_Q3", section:"Main", type:"text_only", text:"Consider the following definition of a Data and AI Platform:",
     sub:"A Data and AI Platform brings together an organization's data, analytics, and AI capabilities to support the development and delivery of data- and AI-enabled products, services, customer experiences, and employee experiences. One example is an Amazon-like business model."},
   {id:"Q3", section:"Main", type:"time_scale", scaleType:"importance",
     text:"How important is having this type of Data and AI Platform to your organization?",
     sub:"Please use a 7-point scale, where 1 means \u201cNot relevant to our organization\u201d and 7 means \u201cCritical to our success.\u201d",
-    periods:[{id:"now", label:"Now"},{id:"y1", label:"In 1 year"},{id:"y3", label:"In 3 years"}]},
+    periods:[{id:"now", label:"Now", qnrCode:"Q3a"},{id:"y1", label:"In 1 year", qnrCode:"Q3b"},{id:"y3", label:"In 3 years", qnrCode:"Q3c"}]},
 
   {id:"DEF_Q4", section:"Main", type:"text_only", text:"Consider the following definition of a Data and AI Platform:",
     sub:"A Data and AI Platform is an integrated environment in which an organization's data can be stored, governed, accessed, and used to support AI and analytics without requiring unnecessary duplication or movement across separate environments."},
   {id:"Q4", section:"Main", type:"time_single", text:"Thinking about your organization's data, AI capabilities, and AI agents, which of the following best describes your level of integration?", sub:"Tap the ⓘ above for full definitions of each option.",
     options: MATURITY_OPTIONS,
-    periods:[{id:"now", label:"Now"},{id:"y1", label:"In 1 year"},{id:"y3", label:"In 3 years"}]},
+    periods:[{id:"now", label:"Now", qnrCode:"Q4a"},{id:"y1", label:"In 1 year", qnrCode:"Q4b"},{id:"y3", label:"In 3 years", qnrCode:"Q4c"}]},
 
   {id:"DEF_Q5", section:"Main", type:"text_only", text:"Consider this statement about an AI Operating System:",
     sub:"An AI Operating System is a governed foundation that brings together data, AI models and agents, governance, and infrastructure controls in a common environment used across teams, applications, and AI workloads rather than separate technology stacks."},
   {id:"Q5", section:"Main", type:"time_scale", scaleType:"importance",
     text:"How important is having this type of AI Operating System to your organization?",
     sub:"Please use a 7-point scale, where 1 means \u201cNot relevant to our organization\u201d and 7 means \u201cCritical to our success.\u201d",
-    periods:[{id:"now", label:"Now"},{id:"y1", label:"In 1 year"},{id:"y3", label:"In 3 years"}]},
+    periods:[{id:"now", label:"Now", qnrCode:"Q5a"},{id:"y1", label:"In 1 year", qnrCode:"Q5b"},{id:"y3", label:"In 3 years", qnrCode:"Q5c"}]},
 
   {id:"Q6", section:"Main", type:"grid_single_chunked", chunkSize:5, sub:"Select one status per statement.", text:"Organizations are at different stages in integrating AI, data, agents, governance, and infrastructure. For each statement, indicate the status that best describes your organization today.",
     rows: Q6_STATEMENTS.map((s,i)=>({id:"q6_"+i, label:s})), columns:Q6_SCALE},
@@ -990,56 +1015,73 @@ function codeOf(list, label){
   return i === -1 ? "" : String(i+1);
 }
 
+// Code for a grid/chunked-grid column: respects an explicit q.columnCodes override
+// (e.g. B2's QNR scale is 5/4/3/2/1/0, not the column's 1-based list position).
+function codeForColumn(q, colLabel){
+  if(q.columnCodes){
+    const i = q.columns.indexOf(colLabel);
+    return i === -1 ? "" : q.columnCodes[i];
+  }
+  return codeOf(q.columns, colLabel);
+}
+
+// Base column header for a question: the QNR code plus the verbatim question text.
+function qnrHeader(q){
+  return q.id + ". " + q.text;
+}
+
 function flattenAnswers(){
   const out = {};
   QUESTIONS.forEach(q=>{
     const v = answers[q.id];
     if(v===undefined) return;
+    const header = qnrHeader(q);
 
     if(q.type==="single"){
-      out[q.id+"_label"] = v;
-      out[q.id+"_code"] = codeOf(q.options, v);
-      if(q.other && v===q.other && otherText[q.id]) out[q.id+"_other"] = otherText[q.id];
+      out[header] = v;
+      out[header + " [Code]"] = codeOf(q.options, v);
+      if(q.other && v===q.other && otherText[q.id]) out[header + " - " + q.other] = otherText[q.id];
 
     } else if(q.type==="multi"){
-      out[q.id+"_label"] = v.join(" | ");
-      out[q.id+"_code"] = v.map(x=>codeOf(q.options, x)).join(" | ");
-      if(q.other && v.includes(q.other) && otherText[q.id]) out[q.id+"_other"] = otherText[q.id];
+      // One column per option (1/0), instead of a single comma/pipe-joined cell.
+      q.options.forEach(opt=>{
+        out[header + " - " + opt] = v.includes(opt) ? 1 : 0;
+      });
+      if(q.other && v.includes(q.other) && otherText[q.id]) out[header + " - " + q.other + " (specify)"] = otherText[q.id];
 
     } else if(q.type==="grid_single" || q.type==="grid_single_paginated" || q.type==="grid_single_chunked"){
-      const rows = q.type==="grid_single" ? getRows(q) : q.rows;
-      const labelObj = {}, codeObj = {};
+      const rows = q.type==="grid_single" ? getRows(q) : (q.type==="grid_single_chunked" ? getRows(q) : q.rows);
       rows.forEach(r=>{
-        labelObj[r.id] = v[r.id] || "";
-        codeObj[r.id] = v[r.id] ? codeOf(q.columns, v[r.id]) : "";
+        const rowHeader = header + " - " + r.label;
+        out[rowHeader] = v[r.id] || "";
+        out[rowHeader + " [Code]"] = v[r.id] ? codeForColumn(q, v[r.id]) : "";
       });
-      out[q.id+"_label"] = JSON.stringify(labelObj);
-      out[q.id+"_code"] = JSON.stringify(codeObj);
 
     } else if(q.type==="grid_multi"){
+      // One column per row x option combo (1/0). Rows never shown to a given
+      // respondent (skip logic) simply produce no columns for that response.
       const rows = getRows(q);
-      const labelObj = {}, codeObj = {};
       rows.forEach(r=>{
         const arr = v[r.id] || [];
-        labelObj[r.id] = arr;
-        codeObj[r.id] = arr.map(x=>codeOf(q.columns, x));
+        q.columns.forEach(col=>{
+          out[header + " - " + r.label + " - " + col] = arr.includes(col) ? 1 : 0;
+        });
       });
-      out[q.id+"_label"] = JSON.stringify(labelObj);
-      out[q.id+"_code"] = JSON.stringify(codeObj);
 
     } else if(q.type==="time_scale"){
-      out[q.id+"_label"] = JSON.stringify(v);
-      out[q.id+"_code"] = JSON.stringify(v);
+      // Each period is its own original QNR question (e.g. Q1a/Q1b) -> its own column.
+      q.periods.forEach(p=>{
+        const colHeader = p.qnrCode + ". " + q.text + " (" + p.label + ")";
+        out[colHeader] = v[p.id] !== undefined ? v[p.id] : "";
+      });
 
     } else if(q.type==="time_single"){
       const fullList = q.options.map(o=>o.full);
-      const labelObj = {}, codeObj = {};
       q.periods.forEach(p=>{
-        labelObj[p.id] = v[p.id] || "";
-        codeObj[p.id] = v[p.id] ? codeOf(fullList, v[p.id]) : "";
+        const colHeader = p.qnrCode + ". " + q.text + " (" + p.label + ")";
+        out[colHeader] = v[p.id] || "";
+        out[colHeader + " [Code]"] = v[p.id] ? codeOf(fullList, v[p.id]) : "";
       });
-      out[q.id+"_label"] = JSON.stringify(labelObj);
-      out[q.id+"_code"] = JSON.stringify(codeObj);
     }
   });
   return out;
