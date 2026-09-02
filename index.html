@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Industry Research Survey | Thinker Media Group</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
@@ -1120,11 +1121,20 @@ function checkServerLock(cb){
 /* =========================================================
    BOOT
    ========================================================= */
+// Show the intro immediately instead of blocking on the Apps Script round trip.
+// The one-time-use check still runs, just in the background: if it comes back
+// "used" while the person is still reading the intro (hasn't clicked Begin yet),
+// we swap them to the already-used screen. Once they've started (idx > -1),
+// a late-arriving lock response is ignored — they've already passed the gate.
 function boot(){
   if(isLockedLocally()){ renderAlreadyUsed(); return; }
+  idx = -1;
+  render();
   checkServerLock((used)=>{
-    if(used){ lockRef(); renderAlreadyUsed(); }
-    else { idx = -1; render(); }
+    if(used){
+      lockRef();
+      if(idx === -1){ renderAlreadyUsed(); }
+    }
   });
 }
 boot();
