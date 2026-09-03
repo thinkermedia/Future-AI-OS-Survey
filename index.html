@@ -334,8 +334,8 @@ const WORKLOAD_ROWS = shuffle([
   {id:"oltp", label:"Online Transaction Processing (OLTP)", def:"Online Transaction Processing (OLTP) supports the high-volume, concurrent processing of operational transactions, such as purchases, orders, payments, reservations, account updates, or other real-time application activity. OLTP systems are optimized for fast, reliable inserts, updates, and retrieval of relatively small amounts of data per transaction."}
 ]);
 
-const LIKELIHOOD_ANCHORS = {1:"No chance",7:"Certain"};
-const IMPORTANCE_ANCHORS = {1:"Not relevant to our organization",7:"Critical to our success"};
+const LIKELIHOOD_ANCHORS = {1:"No chance",2:"Extremely unlikely",3:"Somewhat unlikely",4:"Somewhat likely",5:"Very likely",6:"Extremely likely",7:"Certain"};
+const IMPORTANCE_ANCHORS = {1:"Not relevant to our organization",4:"Somewhat important",7:"Critical to our success"};
 
 // Verbatim maturity option text (stored/scored) + short display label + tooltip def (same verbatim text)
 const MATURITY_OPTIONS = [
@@ -454,11 +454,12 @@ const QUESTIONS = [
 
   {id:"S7b", section:"Screener", type:"grid_multi", text:"Thinking of the different types of data workload(s) used, how is each currently managed?", sub:"If used in a hybrid setting, please select all that apply for each row.",
     rowsFrom:{from:"S7a", matchValue:"Use Now"},
-    columns: shuffle(["On Premise","Public Cloud","Private Cloud","Other"]).concat(["Not Sure"]), exclusiveCols:["Not Sure"]},
+    columns: ["On Premise","Public Cloud","Private Cloud","Other","Not Sure"], exclusiveCols:["Not Sure"]},
 
   {id:"S7c", section:"Screener", type:"grid_multi", text:"For each workload your organization currently uses, which cloud provider(s) does your organization prefer for that workload?", sub:"Please select all that apply for each row.",
     rowsFrom:{from:"S7a", matchValue:"Use Now"},
-    columns: shuffle(["Microsoft Azure","Google Cloud","AWS","National / Regional Cloud Supplier","Other Cloud Provider","No Preferred Provider","No cloud provider – on premise only"])},
+    columns: ["Microsoft Azure","Google Cloud","AWS","National / Regional Cloud Supplier","Other Cloud Provider","No Preferred Provider","No cloud provider – on premise only"],
+    exclusiveCols:["No Preferred Provider","No cloud provider – on premise only"]},
 
   {id:"B1a", section:"Screener", type:"multi", text:"Which of the following data-related technologies are currently being used across your organization?", sub:"Select all that apply.",
     options:[...BRANDS,"Other (please specify)"], other:"Other (please specify)"},
@@ -472,7 +473,7 @@ const QUESTIONS = [
     columnCodes: ["5","4","3","2","1","0"]},
 
   // ---------- MAIN SURVEY ----------
-  {id:"INTRO_MAIN", section:"Main", type:"text_only",
+  {id:"INTRO_MAIN", section:"Main", type:"text_only", underline:true,
     text:"AI and Data-Driven Decision-Making",
     sub:"Today's study focuses on how your organization uses AI and data, how you expect that to evolve, and the future role of Sovereign AI and Data, Data and AI Platforms, and AI Operating Systems."},
 
@@ -481,27 +482,27 @@ const QUESTIONS = [
     sub:"How likely is this to be true? Please use a 7-point scale, where 1 means \u201cNo chance\u201d and 7 means \u201cCertain.\u201d",
     periods:[{id:"y1", label:"In 1 year", qnrCode:"Q1a"},{id:"y3", label:"In 3 years", qnrCode:"Q1b"}]},
 
-  {id:"DEF_Q2", section:"Main", type:"text_only", text:"Consider the following definition of Sovereign AI and Data:",
+  {id:"DEF_Q2", section:"Main", type:"text_only", underline:true, text:"Consider the following definition of Sovereign AI and Data:",
     sub:"\u201cSovereign AI and Data\u201d means maintaining control over your organization's data and AI, including where they reside, how they are accessed, governed, and used to meet organizational and regulatory requirements across cloud, on-premises, and hybrid environments."},
   {id:"Q2", section:"Main", type:"time_scale", scaleType:"importance",
     text:"How important is achieving this level of control over AI and data to your organization?",
     sub:"Please use a 7-point scale, where 1 means \u201cNot relevant to our organization\u201d and 7 means \u201cCritical to our success.\u201d",
     periods:[{id:"now", label:"Now", qnrCode:"Q2a"},{id:"y1", label:"In 1 year", qnrCode:"Q2b"},{id:"y3", label:"In 3 years", qnrCode:"Q2c"}]},
 
-  {id:"DEF_Q3", section:"Main", type:"text_only", text:"Consider the following definition of a Data and AI Platform:",
+  {id:"DEF_Q3", section:"Main", type:"text_only", underline:true, text:"Consider the following definition of a Data and AI Platform:",
     sub:"A Data and AI Platform brings together an organization's data, analytics, and AI capabilities to support the development and delivery of data- and AI-enabled products, services, customer experiences, and employee experiences. One example is an Amazon-like business model."},
   {id:"Q3", section:"Main", type:"time_scale", scaleType:"importance",
     text:"How important is having this type of Data and AI Platform to your organization?",
     sub:"Please use a 7-point scale, where 1 means \u201cNot relevant to our organization\u201d and 7 means \u201cCritical to our success.\u201d",
     periods:[{id:"now", label:"Now", qnrCode:"Q3a"},{id:"y1", label:"In 1 year", qnrCode:"Q3b"},{id:"y3", label:"In 3 years", qnrCode:"Q3c"}]},
 
-  {id:"DEF_Q4", section:"Main", type:"text_only", text:"Consider the following definition of a Data and AI Platform:",
+  {id:"DEF_Q4", section:"Main", type:"text_only", underline:true, text:"Consider the following definition of a Data and AI Platform:",
     sub:"A Data and AI Platform is an integrated environment in which an organization's data can be stored, governed, accessed, and used to support AI and analytics without requiring unnecessary duplication or movement across separate environments."},
   {id:"Q4", section:"Main", type:"time_single", text:"Thinking about your organization's data, AI capabilities, and AI agents, which of the following best describes your level of integration?", sub:"Tap the ⓘ above for full definitions of each option.",
     options: MATURITY_OPTIONS,
     periods:[{id:"now", label:"Now", qnrCode:"Q4a"},{id:"y1", label:"In 1 year", qnrCode:"Q4b"},{id:"y3", label:"In 3 years", qnrCode:"Q4c"}]},
 
-  {id:"DEF_Q5", section:"Main", type:"text_only", text:"Consider this statement about an AI Operating System:",
+  {id:"DEF_Q5", section:"Main", type:"text_only", underline:true, text:"Consider this statement about an AI Operating System:",
     sub:"An AI Operating System is a governed foundation that brings together data, AI models and agents, governance, and infrastructure controls in a common environment used across teams, applications, and AI workloads rather than separate technology stacks."},
   {id:"Q5", section:"Main", type:"time_scale", scaleType:"importance",
     text:"How important is having this type of AI Operating System to your organization?",
@@ -514,13 +515,13 @@ const QUESTIONS = [
   {id:"Q7", section:"Main", type:"grid_single_chunked", chunkSize:5, sub:"Select one option per statement.", text:"For each statement below, indicate whether you associate the capability more closely with a Data & AI Platform or an AI Operating System.",
     rows: Q7_STATEMENTS.map((s,i)=>({id:"q7_"+i, label:s})), columns:Q7_SCALE},
 
-  {id:"Q8a", section:"Main", type:"single", text:"Compared with one year ago, how much consideration does your organization give to energy requirements when making Data and AI Platform or AI Operating System infrastructure decisions?",
+  {id:"Q8a", section:"Main", type:"single", underline:true, text:"Compared with one year ago, how much consideration does your organization give to energy requirements when making Data and AI Platform or AI Operating System infrastructure decisions?",
     options:["Much more consideration than one year ago","Somewhat more consideration","About the same consideration","Somewhat less consideration","Much less consideration","Energy requirements are not a consideration for our organization","Don't know / Not sure"]},
 
-  {id:"Q8b", section:"Main", type:"multi", text:"Which of the following energy-related factors are important when your organization makes AI and Data Infrastructure decisions?", sub:"Select all that apply.",
-    options:["Availability of sufficient power","Reliability/resilience of the energy supply","Cost of energy","Energy efficiency",
+  {id:"Q8b", section:"Main", type:"multi", underline:true, text:"Which of the following energy-related factors are important when your organization makes AI and Data Infrastructure decisions?", sub:"Select all that apply.",
+    options:[...shuffle(["Availability of sufficient power","Reliability/resilience of the energy supply","Cost of energy","Energy efficiency",
       "Availability of renewable or low-carbon energy","Carbon emissions/environmental impact","Water and cooling requirements",
-      "Ability to scale energy capacity as AI workloads grow","Regulatory requirements","Other","None of these","Don't know / Not sure"],
+      "Ability to scale energy capacity as AI workloads grow","Regulatory requirements"]),"Other","None of these","Don't know / Not sure"],
     exclusive:["None of these","Don't know / Not sure"], other:"Other"},
 
   {id:"Q8c", section:"Main", type:"multi", text:"When thinking of your organization's data, which one of these statements best represents how you are organized now.", sub:"Please choose a maximum of two statements.",
@@ -538,7 +539,7 @@ const QUESTIONS = [
     options:["Made AI and Data Sovereignty much more important","Made AI and Data Sovereignty somewhat more important","Has not changed its importance",
       "Made AI and Data Sovereignty somewhat less important","Made AI and Data Sovereignty much less important","AI and Data Sovereignty is not relevant to our organization","Don't know / Not sure"]},
 
-  {id:"Q9b", section:"Main", type:"multi", text:"Which of the following factors have increased your organization's focus on AI and Data Sovereignty?", sub:"Select all that apply.",
+  {id:"Q9b", section:"Main", type:"multi", underline:true, text:"Which of the following factors have increased your organization's focus on AI and Data Sovereignty?", sub:"Select all that apply.",
     options:["Data privacy or data residency requirements","Regulatory or compliance requirements","Geopolitical uncertainty","Cybersecurity concerns",
       "Dependence on technology providers in other countries","Dependence on a small number of cloud or AI providers",
       "AI hardware or semiconductor supply-chain concerns","Need for greater control over organizational data","Need for greater control over AI models and agents",
@@ -768,8 +769,8 @@ function renderQuestion(q){
     return;
   }
 
-  html += `<div class="qtext">${escapeHtml(q.text)}</div>`;
-  if(q.sub) html += `<div class="qsub">${escapeHtml(q.sub)}</div>`;
+  html += `<div class="qtext"${q.underline?' style="text-decoration:underline;"':''}>${escapeHtml(q.text)}</div>`;
+  if(q.sub) html += `<div class="qsub"${q.underline?' style="text-decoration:underline;"':''}>${escapeHtml(q.sub)}</div>`;
 
   if(q.type === "text_only"){
     cardEl.innerHTML = html;
@@ -814,7 +815,7 @@ function renderQuestion(q){
       }
       html += `</div></div>`;
     });
-    html += `<div class="scale-legend"><span>1 = ${escapeHtml(anchors[1])}</span><span>7 = ${escapeHtml(anchors[7])}</span></div>`;
+    html += `<div class="scale-legend">` + Object.keys(anchors).sort((a,b)=>a-b).map(n=>`<span>${n} = ${escapeHtml(anchors[n])}</span>`).join('') + `</div>`;
     html += `</div>`;
   }
 
